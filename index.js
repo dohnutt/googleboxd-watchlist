@@ -6,6 +6,7 @@
 const jsdom = require('jsdom');
 const { JSDOM } = jsdom;
 const axios = require('axios');
+require('dotenv').config();
 
 // downloading the target web page
 async function scrape() {
@@ -17,7 +18,7 @@ async function scrape() {
 	for (let i = 0; i <= 5; i++) {
 		await axios.request({
 			method: 'GET',
-			url: 'https://www.google.com/collections/s/list/qJMxPOnLzoE4SU1ChkOhP3ZBC0hQdw/U8F-lG_6BmM?pageNumber=' + (i + 1),
+			url: process.env.GOOGLE_WATCHLIST_URL + '?pageNumber=' + (i + 1),
 			headers: {
 				'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36'
 			}
@@ -71,6 +72,4 @@ async function scrape() {
 (async () => {
 	const items = await scrape();
 	console.log(items);
-
-
 })()
